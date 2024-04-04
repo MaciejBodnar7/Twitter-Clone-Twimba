@@ -19,7 +19,10 @@ function handleLikeClick(tweetId) {
   const targetTweetObj = tweetsData.filter(function (tweet) {
     return tweet.uuid === tweetId;
     //if that true element will be save to targetTweetObj
-  });
+  })[0]; //save position 0 of array (it only have one index anyway)
+
+  targetTweetObj.likes++;
+  console.log(targetTweetObj);
 }
 
 // forEach() LOOP over tweetsData, saving innnerHtml in feedHtml
