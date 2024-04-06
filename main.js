@@ -54,15 +54,29 @@ function getFeedHtml() {
   let feedHtml = "";
   tweetsData.forEach(function (tweet) {
     let likeIconClass = "";
-
     if (tweet.isLiked) {
       likeIconClass = "liked";
     }
 
     let retweetIconClass = "";
-
     if (tweet.isRetweeted) {
       retweetIconClass = "retweeted";
+    }
+
+    let repliesHtml = "";
+    if (tweet.replies.length > 0) {
+      tweet.replies.forEach(function (replie) {
+        repliesHtml += `
+        <div class="tweet-reply">
+        <div class="tweet-inner">
+            <img src="${replie.profilePic}" class="profile-pic">
+                <div>
+                    <p class="handle">${replie.handle}</p>
+                    <p class="tweet-text">${replie.tweetText}</p>
+                </div>
+            </div>
+        </div>`;
+      });
     }
 
     feedHtml += `
@@ -87,6 +101,9 @@ function getFeedHtml() {
                     </span>
                 </div>   
             </div>            
+        </div>
+        <div id="replies-${tweet.uuid}">
+            ${repliesHtml}
         </div>
     </div>
     `;
